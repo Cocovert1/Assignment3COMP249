@@ -76,9 +76,15 @@ public class Main {
         //setups the scanner object for the different files, setups the title, attributes, data and note
         for(File f : svcArray){
             try {
+                for(File s : svcArray){
+                    if(!(s.exists())){
+                        throw new FileNotFoundException("File " + s + " not found");
+                    }
+                }
                 input = new Scanner(new FileInputStream(f));
             } catch (FileNotFoundException e) {
                 System.out.println(e.getMessage());
+                System.exit(0);
             }
 
             //Strings for title, attributes, attribute string array
@@ -196,30 +202,30 @@ public class Main {
         }
 
         //Asks what html wants to be seen, checks if its valid, displays it using BufferedReader
-        String[] splitoffiles = listOfFiles.split(",");
+        String[] splitoffiles = listOfFiles.split(","); //splits files by ","
         System.out.print("What file would you like to see: ");
         String htmlfileopen = scan.nextLine();
         String[] htmlsplit = htmlfileopen.split("\\.");
-        boolean condition = true;
-        int count = 0;
-        int counter = 0;
+        boolean condition = true; //while loop condition
+        int count = 0; //counts amount of times retried
+        int counter = 0; //counts amount of files checked
         while(condition){
         for (int i = 0; i < splitoffiles.length; i++) {
             String[] tempi = splitoffiles[i].split("\\.");
-            if (htmlfileopen.equals(splitoffiles[i]) || !(htmlsplit[0].equals(tempi[0]))) {
-                if(count == 1){
+            if (htmlfileopen.equals(splitoffiles[i]) || !(htmlsplit[0].equals(tempi[0]))) { //checks if same name with . and without
+                if(count == 1){ //checks if already tried once
                     System.out.println("Invalid, system will terminate.");
-                    System.exit(0);
+                    System.exit(0); //terminates system
                 }
-                if(counter == 0){
+                if(counter < (splitoffiles.length)){ //checks if it has checked all files
                     counter++;
                     continue;
                 }
-                System.out.print("Invalid file name, please enter again (you have 1 more try: ");
+                System.out.print("Invalid file name, please enter again (you have 1 more try: "); //asks for the second input
                 htmlfileopen = scan.nextLine();
                 count++;
                 continue;
-            } else {
+            } else { //prints out the html on console
                 BufferedReader objReader = null;
                 try {
                     objReader = new BufferedReader(new FileReader("src\\" + htmlfileopen));
