@@ -76,9 +76,9 @@ public class Main {
         //setups the scanner object for the different files, setups the title, attributes, data and note
         for(File f : svcArray){
             try {
-                for(File s : svcArray){
+                for(File s : svcArray){ //checks if all files exist
                     if(!(s.exists())){
-                        throw new FileNotFoundException("File " + s + " not found");
+                        throw new FileNotFoundException("File " + s + " not found"); //throws exception if one file does not exist
                     }
                 }
                 input = new Scanner(new FileInputStream(f));
