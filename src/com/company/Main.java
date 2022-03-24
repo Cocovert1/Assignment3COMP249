@@ -202,6 +202,7 @@ public class Main {
         String[] htmlsplit = htmlfileopen.split("\\.");
         boolean condition = true;
         int count = 0;
+        int counter = 0;
         while(condition){
         for (int i = 0; i < splitoffiles.length; i++) {
             String[] tempi = splitoffiles[i].split("\\.");
@@ -210,10 +211,14 @@ public class Main {
                     System.out.println("Invalid, system will terminate.");
                     System.exit(0);
                 }
+                if(counter == 0){
+                    counter++;
+                    continue;
+                }
                 System.out.print("Invalid file name, please enter again (you have 1 more try: ");
                 htmlfileopen = scan.nextLine();
                 count++;
-                break;
+                continue;
             } else {
                 BufferedReader objReader = null;
                 try {
